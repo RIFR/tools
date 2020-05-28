@@ -1,5 +1,8 @@
 package se.rifr.tools.change.collector;
 
+/**
+ * @author Richard Freyschuss {@literal <mailto:richard.freyschuss@gmail.com/>}
+ */
 public class ActionData {
 
     private String action;

@@ -5,6 +5,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * @author Richard Freyschuss {@literal <mailto:richard.freyschuss@gmail.com/>}
+ */
 public class FileIOSupport {
 
     private enum fileTypeKind { STANDARD_IO, FILE_IO };

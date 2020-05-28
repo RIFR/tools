@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Stream;
 
+/**
+ * @author Richard Freyschuss {@literal <mailto:richard.freyschuss@gmail.com/>}
+ */
 public class DataHtmlCollector {
 
     private String title;

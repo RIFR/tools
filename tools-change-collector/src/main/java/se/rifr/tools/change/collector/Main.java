@@ -10,6 +10,9 @@ import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
+/**
+ * @author Richard Freyschuss {@literal <mailto:richard.freyschuss@gmail.com/>}
+ */
 public class Main {
 
     public static void main(String[] args) throws IOException {
@@ -52,12 +55,13 @@ public class Main {
                 .filter(item -> !item.startsWith("#"));
 
         PdfReleaseDataWriter pdfReleaseDataWriter = new PdfReleaseDataWriterImpl();
+        AdocReleaseDataWriter adocReleaseDataWriter = new AdocReleaseDataWriterImpl();
 
         PdfWriter pdfWriter = null;
 
-        String pdfOutputFileName = "release-" + releaseName + ".pdf";
+        String outputFileName = "release-" + releaseName;
 
-        try (OutputStream outputStream = new FileOutputStream(pdfOutputFileName)) {
+        try (OutputStream outputStream = new FileOutputStream(outputFileName+ ".pdf")) {
             Document pdfDocument = new Document();
             pdfWriter = PdfWriter.getInstance(pdfDocument, outputStream);
             pdfWriter.open();
@@ -81,16 +85,18 @@ public class Main {
 
                 System.out.println(FileIOSupport.consoleColors.RED + applicationName + FileIOSupport.consoleColors.RESET + dataHtmlCollector);
 
-                pdfReleaseDataWriter.writeHeader(applicationName, pdfDocument);
+                pdfReleaseDataWriter.writeHeader(applicationName);
+                dataHtmlCollector.getReleaseVersions().forEach(pdfReleaseDataWriter::writeReleaseData);
 
-                dataHtmlCollector.getReleaseVersions().forEach(item -> {
-                    pdfReleaseDataWriter.writeReleaseData(item, pdfDocument);
-                });
+                adocReleaseDataWriter.writeHeader(applicationName);
+                dataHtmlCollector.getReleaseVersions().forEach(adocReleaseDataWriter::writeReleaseData);
 
             });
 
             pdfReleaseDataWriter.write(pdfDocument);
             pdfDocument.close();
+
+            adocReleaseDataWriter.write(outputFileName+ ".adoc");
 
         } finally {
             if (pdfWriter!=null)
@@ -98,7 +104,9 @@ public class Main {
         }
 
         System.out.println("-------------------------------------------------------------------------");
-        System.out.println("The composed release information is presented in: " + pdfOutputFileName);
+        System.out.println("The composed release information is presented in: " + outputFileName+ ".pdf");
+        System.out.println("  - " + outputFileName+ ".pdf");
+        System.out.println("  - " + outputFileName+ ".adoc");
         System.out.println("-------------------------------------------------------------------------");
 
     }

@@ -2,6 +2,9 @@ package se.rifr.tools.change.collector;
 
 import java.time.Instant;
 
+/**
+ * @author Richard Freyschuss {@literal <mailto:richard.freyschuss@gmail.com/>}
+ */
 public class MainParameters {
 
     private boolean helpRequested = false;

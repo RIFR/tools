@@ -1,14 +1,14 @@
 package se.rifr.tools.change.collector;
 
-import com.lowagie.text.*;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
 import com.lowagie.text.Font;
+import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 
-import java.awt.*;
-
 /**
- * @author Magnus Poromaa {@literal <mailto:magnus.poromaa@so4it.com/>}
+ * @author Richard Freyschuss {@literal <mailto:richard.freyschuss@gmail.com/>}
  */
 public class PdfReleaseDataWriterImpl implements PdfReleaseDataWriter {
 
@@ -21,7 +21,7 @@ public class PdfReleaseDataWriterImpl implements PdfReleaseDataWriter {
     }
 
     @Override
-    public void writeHeader(String header, Document document) {
+    public void writeHeader(String header) {
 
         PdfPCell cell = new PdfPCell();
 
@@ -32,7 +32,7 @@ public class PdfReleaseDataWriterImpl implements PdfReleaseDataWriter {
         table.addCell(cell);
     }
 
-    public void writeReleaseData(ReleaseData releaseData, Document document) {
+    public void writeReleaseData(ReleaseData releaseData) {
 
         try {
             table.addCell(releaseData.getReleaseInformation());
@@ -41,8 +41,8 @@ public class PdfReleaseDataWriterImpl implements PdfReleaseDataWriter {
             releaseData.getActionData().forEach(item -> {
                 table.addCell(item.getAction());
                 table.addCell(item.getActionNote()
-                        .replace("type=","")
-                        .replace("dev=",""));
+                        .replace("type=", "")
+                        .replace("dev=", ""));
             });
 
             table.addCell("");
@@ -62,6 +62,6 @@ public class PdfReleaseDataWriterImpl implements PdfReleaseDataWriter {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-     }
+    }
 
 }
