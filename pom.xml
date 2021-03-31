@@ -24,7 +24,7 @@
         <!-- https://maven.apache.org/general.html#encoding-warning -->
         <spring.version>5.1.7.RELEASE</spring.version>
         <javax.servlet.api.version>3.0.1</javax.servlet.api.version>
-        <guava.version>26.0-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
 
         <!--
             Maven plugins
